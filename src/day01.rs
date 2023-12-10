@@ -22,7 +22,7 @@ pub fn part_one() {
 
     let max_calories: i32 = elves.iter().map(|elf| elf.iter().sum()).max().unwrap();
 
-    println!("[{:.2?}] Day 1 part 1 result: {}", before.elapsed(), max_calories);
+    println!("[{:.2?}]\t Day 1 part 1 result: {}", before.elapsed(), max_calories);
 }
 
 pub fn part_two() {
@@ -36,5 +36,5 @@ pub fn part_two() {
 
     let result: i32 = sorted.iter().take(3).sum();
 
-    println!("[{:.2?}] Day 1 part 2 result: {}", before.elapsed(), result);
+    println!("[{:.2?}]\t Day 1 part 2 result: {}", before.elapsed(), result);
 }
