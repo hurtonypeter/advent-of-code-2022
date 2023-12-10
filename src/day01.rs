@@ -1,6 +1,6 @@
 use itertools::sorted;
 
-fn parse_input() -> (Vec<Vec<i32>>) {
+fn parse_input() -> Vec<Vec<i32>> {
     let content = std::fs::read_to_string("input/day01.txt").unwrap();
     let blocks: Vec<&str> = content
         .split("\r\n\r\n")

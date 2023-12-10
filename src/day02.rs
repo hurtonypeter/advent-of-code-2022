@@ -18,34 +18,34 @@ enum Target {
 struct Game {
     opponent: Sign,
     player: Sign,
-    player_target: Target,
+    target: Target,
 }
 
-fn parse_game(data: &str) -> Result<Game, &'static str> {
+fn parse_game(data: &str) -> Game {
     let draws: Vec<&str> = data.split_whitespace().collect();
 
     let opponent = match draws[0] {
         "A" => Sign::Rock,
         "B" => Sign::Paper,
         "C" => Sign::Scissor,
-        _ => return Err("Unknown sign for opponent")
+        _ => panic!()
     };
 
     let player = match draws[1] {
         "X" => Sign::Rock,
         "Y" => Sign::Paper,
         "Z" => Sign::Scissor,
-        _ => return Err("Unknown sign for player")
+        _ => panic!()
     };
 
     let target = match draws[1] {
         "X" => Target::Loose,
         "Y" => Target::Draw,
         "Z" => Target::Win,
-        _ => return Err("Unknown sign for player")
+        _ => panic!()
     };
 
-    Ok(Game { opponent, player, player_target: target })
+    Game { opponent, player, target }
 }
 
 fn parse_input() -> Vec<Game> {
@@ -53,7 +53,7 @@ fn parse_input() -> Vec<Game> {
 
     let games = content
         .lines()
-        .map(|line| parse_game(line).unwrap())
+        .map(|line| parse_game(line))
         .collect();
 
     games
@@ -73,8 +73,7 @@ fn get_pick_points(pick: &Sign) -> i32 {
     return match pick {
         Sign::Rock => 1,
         Sign::Paper => 2,
-        Sign::Scissor => 3,
-        _ => panic!(),
+        Sign::Scissor => 3
     };
 }
 
@@ -102,23 +101,23 @@ pub fn part_two() {
 
     let mut sum: i32 = 0;
     for game in games {
-        let pick: Sign = if game.opponent == Sign::Rock && game.player_target == Target::Win {
+        let pick: Sign = if game.opponent == Sign::Rock && game.target == Target::Win {
             Sign::Paper
-        } else if game.opponent == Sign::Rock && game.player_target == Target::Draw {
+        } else if game.opponent == Sign::Rock && game.target == Target::Draw {
             Sign::Rock
-        } else if game.opponent == Sign::Rock && game.player_target == Target::Loose {
+        } else if game.opponent == Sign::Rock && game.target == Target::Loose {
             Sign::Scissor
-        } else if game.opponent == Sign::Paper && game.player_target == Target::Win {
+        } else if game.opponent == Sign::Paper && game.target == Target::Win {
             Sign::Scissor
-        } else if game.opponent == Sign::Paper && game.player_target == Target::Draw {
+        } else if game.opponent == Sign::Paper && game.target == Target::Draw {
             Sign::Paper
-        } else if game.opponent == Sign::Paper && game.player_target == Target::Loose {
+        } else if game.opponent == Sign::Paper && game.target == Target::Loose {
             Sign::Rock
-        } else if game.opponent == Sign::Scissor && game.player_target == Target::Win {
+        } else if game.opponent == Sign::Scissor && game.target == Target::Win {
             Sign::Rock
-        } else if game.opponent == Sign::Scissor && game.player_target == Target::Draw {
+        } else if game.opponent == Sign::Scissor && game.target == Target::Draw {
             Sign::Scissor
-        } else if game.opponent == Sign::Scissor && game.player_target == Target::Loose {
+        } else if game.opponent == Sign::Scissor && game.target == Target::Loose {
             Sign::Paper
         } else {
             panic!();
