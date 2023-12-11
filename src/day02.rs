@@ -1,13 +1,11 @@
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 enum Sign {
     Rock,
     Paper,
     Scissor,
 }
 
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 enum Target {
     Loose,
     Draw,
